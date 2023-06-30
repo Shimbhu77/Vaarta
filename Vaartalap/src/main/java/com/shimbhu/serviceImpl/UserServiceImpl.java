@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.shimbhu.exceptions.UserException;
@@ -126,6 +128,28 @@ public class UserServiceImpl implements UserService {
 			return user;
 		}
 		throw new UserException("User not found with this email : "+email);
+	}
+	
+	@Override
+	public Users getCurrentLoggedInUser() throws UserException
+	{
+		log.info(" checking user is logged in or not.");
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		
+		Optional<Users> opt = userRepository.findByEmail(auth.getName());
+		
+		if(opt.isPresent())
+		{
+			Users user = opt.get();
+			
+			log.info("user is already logged in.");
+			
+			return user;
+		}
+		
+		throw new UserException("Please Login first, for accessing your account");
+		
 	}
 
 }

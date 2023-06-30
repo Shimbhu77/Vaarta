@@ -22,6 +22,8 @@ public interface UserService {
 	
 	public List<Users> getAllUser() throws UserException;
 	
+	public Users getCurrentLoggedInUser() throws UserException;
+	
 	
 	
 	

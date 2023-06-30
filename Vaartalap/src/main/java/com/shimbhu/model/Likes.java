@@ -1,6 +1,8 @@
 package com.shimbhu.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,10 +26,12 @@ public class Likes {
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "tweet_id")
+	@JsonIgnore
 	private Tweet tweet;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id")
+	@JsonIgnore
 	private Users user;
 
 }

@@ -30,10 +30,12 @@ public class Followers {
 	
 	@ManyToOne
 	@JoinColumn(name = "followed_user_id")
+	@JsonIgnore
 	private Users followedUser;
 
 	@ManyToOne
 	@JoinColumn(name = "follower_user_id")
+	@JsonIgnore
 	private Users followerUser;
 	
     private LocalDateTime createdAt;
