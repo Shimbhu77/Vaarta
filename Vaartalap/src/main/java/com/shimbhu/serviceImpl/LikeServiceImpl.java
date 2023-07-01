@@ -71,13 +71,58 @@ public class LikeServiceImpl implements LikeService {
 	}
 
 	@Override
-	public Likes dislikeTweet(Integer tweetId,Integer id) throws LikeException, UserException, TweetException  {
+	public Likes dislikeTweet(Integer tweetId,Integer likeId) throws LikeException, UserException, TweetException  {
 		
 		 Users user = userService.getCurrentLoggedInUser();
 			
 		 Tweet tweet = tweetservice.getTweetById(tweetId);
 		 
-		 Optional<Likes> opt = likeRepository.findById(id);
+//		 List<Likes> userLikeList = user.getLikes(); 
+//		 
+//		 List<Likes> tweetLikeList = user.getLikes(); 
+//		 
+//		 for(Likes like : userLikeList)
+//		 {
+//			 if(like.getTweet().getTweetId()==tweet.getTweetId())
+//			 {
+//				 Users likeUser = like.getUser();
+//				 
+//				 if(user.getUserId()==likeUser.getUserId())
+//				 {
+//					 
+//					 log.info("removing like from user like list. "+like.getLikeId()+" size of list : "+userLikeList.size());
+//					 
+//					 userLikeList.remove(like);
+//					 
+//					 log.info("removed like from user like list. "+like.getLikeId()+" size of list : "+userLikeList.size());
+//					 
+//	                 log.info("removing like from tweet like list. "+tweetLikeList+" size of list : "+tweetLikeList.size());
+//	                 
+//	                 tweetLikeList.remove(like);
+//					 
+//	                 log.info("removed like from tweet like list. "+tweetLikeList+" size of list : "+tweetLikeList.size());
+//	                 
+//	                 log.info("like before null : "+like);
+//	                 
+//					 like.setUser(null);
+//					 like.setTweet(null);
+//					 
+//					 log.info("like after null : "+like);
+//					 
+//					 log.info("null value setted");
+//					 
+//					 tweet.setTweetLikes(tweet.getTweetLikes()-1);
+//					 
+//					 likeRepository.delete(like);
+//					 
+//					 return like;
+//				 }
+//				 throw new LikeException("Access Denied : you don't have authority to delete this like with Id :  "+tweetId);
+//					
+//			 }
+//		 }
+		 
+		 Optional<Likes> opt = likeRepository.findById(likeId);
 		 
 		 if(opt.isPresent())
 		 {
@@ -118,10 +163,10 @@ public class LikeServiceImpl implements LikeService {
 				 
 				 
 			 }
-			 throw new LikeException("Access Denied : you don't have authority to delete this like with Id :  "+id);
+			 throw new LikeException("Access Denied : you don't have authority to delete this like with Id :  "+likeId);
 		 }
 		
-		 throw new LikeException("can't find like with Id :  "+id);
+		 throw new LikeException("can't find like with Id :  "+tweetId);
 	}
 
 	@Override

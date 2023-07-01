@@ -67,8 +67,13 @@ public class TweetServiceImpl implements TweetService {
 		if(opt.isPresent())
 		{
 			log.info("Tweet got by id.");
+			Tweet tweet = opt.get();
 			
-			return opt.get();
+			tweet.setTweetViews(tweet.getTweetViews()+1);
+			
+			tweetRepository.save(tweet);
+			
+			return tweet;
 		}
 		
 		throw new TweetException("no tweet found with this Id : "+tweetId);
@@ -107,9 +112,42 @@ public class TweetServiceImpl implements TweetService {
 	}
 
 	@Override
-	public Tweet deleteTweet(Integer tweetId) throws TweetException {
-		// TODO Auto-generated method stub
-		return null;
+	public Tweet deleteTweet(Integer tweetId) throws TweetException, UserException {
+
+		Users user = userService.getCurrentLoggedInUser();
+		
+		Optional<Tweet> opt = tweetRepository.findById(tweetId);
+		
+		 
+		
+		if(opt.isPresent())
+		{
+			Tweet tweet = opt.get();
+			
+			Users tweetUser = tweet.getUser();
+			
+			if(tweetUser.getUserId()==user.getUserId())
+			{
+				List<Tweet> list = user.getTweets();
+				
+				list.remove(tweet);
+				
+				tweet.setUser(null);
+				tweet.setLikes(null);
+				tweet.setRetweets(null);
+				
+				log.info("Tweet is deleted.");
+				
+				tweetRepository.delete(tweet);
+				
+				return tweet;
+			}
+			
+			throw new UserException("Access Denied : you don't have authority to update this tweet with Id :  "+tweetId);
+			
+		}
+		
+		throw new TweetException("no tweet found with this Id : "+tweetId);
 	}
 
 	@Override

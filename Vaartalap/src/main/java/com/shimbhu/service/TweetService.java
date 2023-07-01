@@ -15,7 +15,7 @@ public interface TweetService {
 	
 	public Tweet updateTweet(TweetDTO dto,Integer tweetId) throws TweetException, UserException;
 	
-	public Tweet deleteTweet(Integer tweetId) throws TweetException;
+	public Tweet deleteTweet(Integer tweetId) throws TweetException, UserException;
 		
 	public List<Tweet> getAllMyTweets() throws TweetException, UserException;
 	

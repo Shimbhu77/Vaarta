@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,6 +45,14 @@ public class TweetController {
 	   public ResponseEntity<Tweet> gettweetById(@PathVariable("tweetId") Integer tweetId) throws TweetException
 	   {
 		   Tweet tweet = tweetservice.getTweetById(tweetId);
+		   
+		   return new ResponseEntity<Tweet>(tweet,HttpStatus.OK);
+	   }
+	   
+	   @DeleteMapping("/tweets/{tweetId}")
+	   public ResponseEntity<Tweet> deleteTweetById(@PathVariable("tweetId") Integer tweetId) throws TweetException, UserException
+	   {
+		   Tweet tweet = tweetservice.deleteTweet(tweetId);
 		   
 		   return new ResponseEntity<Tweet>(tweet,HttpStatus.OK);
 	   }

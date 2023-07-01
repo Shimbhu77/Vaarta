@@ -27,6 +27,13 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Tweet {
 
+	@Override
+	public String toString() {
+		return "Tweet [tweetId=" + tweetId + ", tweetLikes=" + tweetLikes + ", tweetViews=" + tweetViews + ", content="
+				+ content + ", createdTweetAt=" + createdTweetAt + ", updatedTweetAt=" + updatedTweetAt + ", likes="
+				 + ", retweets=" + "]";
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer tweetId;

@@ -11,7 +11,7 @@ public interface LikeService {
 
 	public Likes likeTweet(Integer tweetId) throws LikeException, UserException, TweetException;
 	
-	public Likes dislikeTweet(Integer tweetId,Integer id) throws LikeException, UserException, TweetException;
+	public Likes dislikeTweet(Integer tweetId,Integer likeId) throws LikeException, UserException, TweetException;
 	
 	public List<Likes> getAllMyLikeTweets() throws LikeException, UserException;
 }

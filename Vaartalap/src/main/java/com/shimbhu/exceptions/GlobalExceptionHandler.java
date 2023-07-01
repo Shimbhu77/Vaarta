@@ -23,6 +23,50 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<ErrorDetails>(err,HttpStatus.BAD_REQUEST);
 		
 	}
+	@ExceptionHandler(FollowerException.class)
+	public ResponseEntity<ErrorDetails> myExceptionHandler( FollowerException e , WebRequest req)
+	{
+		ErrorDetails err  = new ErrorDetails();
+		err.setDescription(req.getDescription(false));
+		err.setTimestamp(LocalDateTime.now());
+		err.setMessage(e.getMessage());
+		
+		return new ResponseEntity<ErrorDetails>(err,HttpStatus.BAD_REQUEST);
+		
+	}
+	@ExceptionHandler(LikeException.class)
+	public ResponseEntity<ErrorDetails> myExceptionHandler(LikeException e , WebRequest req)
+	{
+		ErrorDetails err  = new ErrorDetails();
+		err.setDescription(req.getDescription(false));
+		err.setTimestamp(LocalDateTime.now());
+		err.setMessage(e.getMessage());
+		
+		return new ResponseEntity<ErrorDetails>(err,HttpStatus.BAD_REQUEST);
+		
+	}
+	@ExceptionHandler(RetweetsException.class)
+	public ResponseEntity<ErrorDetails> myExceptionHandler(RetweetsException e , WebRequest req)
+	{
+		ErrorDetails err  = new ErrorDetails();
+		err.setDescription(req.getDescription(false));
+		err.setTimestamp(LocalDateTime.now());
+		err.setMessage(e.getMessage());
+		
+		return new ResponseEntity<ErrorDetails>(err,HttpStatus.BAD_REQUEST);
+		
+	}
+	@ExceptionHandler(TweetException.class)
+	public ResponseEntity<ErrorDetails> myExceptionHandler(TweetException e , WebRequest req)
+	{
+		ErrorDetails err  = new ErrorDetails();
+		err.setDescription(req.getDescription(false));
+		err.setTimestamp(LocalDateTime.now());
+		err.setMessage(e.getMessage());
+		
+		return new ResponseEntity<ErrorDetails>(err,HttpStatus.BAD_REQUEST);
+		
+	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<ErrorDetails> myExceptionHandler(MethodArgumentNotValidException pe)

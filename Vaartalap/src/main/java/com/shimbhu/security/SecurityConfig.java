@@ -55,7 +55,7 @@ public class SecurityConfig {
 				.requestMatchers(HttpMethod.POST,"/users").permitAll()
 				.requestMatchers("/v3/api-docs/**", "/swagger-ui*/**", "/swagger-ui.html").permitAll()
 				.requestMatchers(HttpMethod.GET,"/users","/tweets","/retweets").hasRole("ADMIN")
-				.requestMatchers(HttpMethod.GET,"/users/**","/welcome","/sign-in","/tweets/**","/retweets/**").hasAnyRole("ADMIN","USER")
+				.requestMatchers(HttpMethod.GET,"/users/**","/welcome","/sign-in","/tweets/**","/retweets/**","/followers/**").hasAnyRole("ADMIN","USER")
 				.anyRequest().authenticated()
 				)
 		.csrf(csrf -> csrf.ignoringRequestMatchers("/**")

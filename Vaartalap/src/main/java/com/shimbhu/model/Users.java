@@ -46,6 +46,10 @@ public class Users {
 	
 	private LocalDateTime updatedAt;
 	
+	private Integer follower=0;
+	
+	private Integer following=0;
+	
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Tweet> tweets = new ArrayList<>();
 	

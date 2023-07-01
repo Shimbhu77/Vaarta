@@ -69,20 +69,26 @@ public class UserServiceImpl implements UserService {
 
 		log.info(" inside updateUser method  ");
 		
+		Users loggedInUser = getCurrentLoggedInUser();
+		
 		Optional<Users> opt = userRepository.findById(userId);
 		
 		if(opt.isPresent())
 		{
 			Users user = opt.get();
 			
-			user.setBio(dto.getBio());
-			user.setFullName(dto.getFullName());
-			user.setUpdatedAt(LocalDateTime.now());
+			if(loggedInUser.getUserId()==user.getUserId())
+			{
+				user.setBio(dto.getBio());
+				user.setFullName(dto.getFullName());
+				user.setUpdatedAt(LocalDateTime.now());
+				
+				log.info("User is updated "+user);
+				
+				return userRepository.save(user);
+			}
 			
-			log.info("User is updated "+user);
-			
-			return userRepository.save(user);
-			
+			throw new UserException("Access Denied, you can't update this User with this Id : "+userId);
 		}
 		throw new UserException("User not found with this Id : "+userId);
 	}
@@ -92,7 +98,34 @@ public class UserServiceImpl implements UserService {
 		
 		log.info(" inside deleteUser method  ");
 		
-		return null;
+        Users loggedInUser = getCurrentLoggedInUser();
+		
+		Optional<Users> opt = userRepository.findById(userId);
+		
+		if(opt.isPresent())
+		{
+			Users user = opt.get();
+			
+			if(loggedInUser.getUserId()==user.getUserId())
+			{
+				
+				log.info("User is deleting account "+user);
+//				
+//				user.setLikes(null);
+//				user.setFollowers(null);
+//				user.setRetweets(null);
+//				user.setTweets(null);
+				
+//				userRepository.delete(user);
+				
+				log.info("User deleted account "+user);
+				
+				return user;
+			}
+			
+			throw new UserException("Access Denied, you can't delete this User with this Id : "+userId);
+		}
+		throw new UserException("User not found with this Id : "+userId);
 	}
 
 	@Override

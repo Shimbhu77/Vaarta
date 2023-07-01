@@ -31,7 +31,7 @@ public class LikeController {
     }
 	 
 	 @GetMapping("/likes/dislike/{tweetId}")
-	 public ResponseEntity<Likes> disliketweet(@PathVariable("tweetId") Integer tweetId, @RequestParam("likeId") Integer likeId) throws UserException, TweetException, LikeException
+	 public ResponseEntity<Likes> disliketweet(@PathVariable("tweetId") Integer tweetId,@RequestParam("likeId") Integer likeId) throws UserException, TweetException, LikeException
 	 {
 		   Likes like = likeService.dislikeTweet(tweetId,likeId);
 		   

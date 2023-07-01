@@ -9,6 +9,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,6 +43,14 @@ public class UserController {
    public ResponseEntity<Users> updateUser(@Validated @RequestBody UserDTO dto,@PathVariable("userId") Integer userId) throws UserException
    {
 	   Users user = userService.updateUser(dto,userId);
+	   
+	   return new ResponseEntity<Users>(user,HttpStatus.ACCEPTED);
+   }
+   
+   @DeleteMapping("/users/delete/{userId}")
+   public ResponseEntity<Users> deleteUser(@PathVariable("userId") Integer userId) throws UserException
+   {
+	   Users user = userService.deleteUser(userId);
 	   
 	   return new ResponseEntity<Users>(user,HttpStatus.ACCEPTED);
    }
