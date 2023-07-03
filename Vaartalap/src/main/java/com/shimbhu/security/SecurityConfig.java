@@ -53,8 +53,9 @@ public class SecurityConfig {
 		.authorizeHttpRequests(
 				(auth)-> auth
 				.requestMatchers(HttpMethod.POST,"/users").permitAll()
+				.requestMatchers(HttpMethod.GET,"/tweets").permitAll()
 				.requestMatchers("/v3/api-docs/**", "/swagger-ui*/**", "/swagger-ui.html").permitAll()
-				.requestMatchers(HttpMethod.GET,"/users","/tweets","/retweets").hasRole("ADMIN")
+				.requestMatchers(HttpMethod.GET,"/users","/retweets").hasRole("ADMIN")
 				.requestMatchers(HttpMethod.GET,"/users/**","/welcome","/sign-in","/tweets/**","/retweets/**","/followers/**").hasAnyRole("ADMIN","USER")
 				.anyRequest().authenticated()
 				)

@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,7 @@ public class Retweets {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer retweetId;
 	
+	@Size(min=1,message = "your tweet at least should have 1 character.")
 	private String retweetContent;
 	
     private LocalDateTime createdTweetAt;

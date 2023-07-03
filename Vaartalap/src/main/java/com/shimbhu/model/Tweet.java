@@ -14,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -27,21 +28,15 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Tweet {
 
-	@Override
-	public String toString() {
-		return "Tweet [tweetId=" + tweetId + ", tweetLikes=" + tweetLikes + ", tweetViews=" + tweetViews + ", content="
-				+ content + ", createdTweetAt=" + createdTweetAt + ", updatedTweetAt=" + updatedTweetAt + ", likes="
-				 + ", retweets=" + "]";
-	}
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer tweetId;
 	
-	private Integer tweetLikes;
+	private Integer tweetLikes=0;
 	
-	private Integer tweetViews;
+	private Integer tweetViews=0;
 	
+	@Size(min=1,message = "your tweet at least should have 1 character.")
 	private String content;
 	
     private LocalDateTime createdTweetAt;

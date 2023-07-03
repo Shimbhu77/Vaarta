@@ -30,6 +30,20 @@ public class UserServiceImpl implements UserService {
 		
 		log.info(" inside registerUser method  "+dto);
 		
+		Optional<Users> emailOpt = userRepository.findByEmail(dto.getEmail());          
+		
+		Optional<Users> userNameOpt = userRepository.findByUserName(dto.getUserName());
+		
+		if(emailOpt.isPresent())
+		{
+			throw new UserException("User already exist with mail: "+dto.getEmail());
+		}
+		
+		if(userNameOpt.isPresent())
+		{
+			throw new UserException("User already exist with username: "+dto.getUserName()+", please try another username.");
+		}
+		
 		Users user  = new Users();
 		
 		user.setUserName(dto.getUserName());

@@ -47,13 +47,13 @@ public class UserController {
 	   return new ResponseEntity<Users>(user,HttpStatus.ACCEPTED);
    }
    
-   @DeleteMapping("/users/delete/{userId}")
-   public ResponseEntity<Users> deleteUser(@PathVariable("userId") Integer userId) throws UserException
-   {
-	   Users user = userService.deleteUser(userId);
-	   
-	   return new ResponseEntity<Users>(user,HttpStatus.ACCEPTED);
-   }
+//   @DeleteMapping("/users/delete/{userId}")
+//   public ResponseEntity<Users> deleteUser(@PathVariable("userId") Integer userId) throws UserException
+//   {
+//	   Users user = userService.deleteUser(userId);
+//	   
+//	   return new ResponseEntity<Users>(user,HttpStatus.ACCEPTED);
+//   }
    
    @GetMapping("/users/{userId}")
    public ResponseEntity<Users> getUserById(@PathVariable("userId") Integer userId) throws UserException

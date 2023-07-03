@@ -153,7 +153,7 @@ public class TweetServiceImpl implements TweetService {
 	@Override
 	public List<Tweet> getAllTweets() throws TweetException, UserException {
 
-		Users user = userService.getCurrentLoggedInUser();
+//		Users user = userService.getCurrentLoggedInUser();
 		
 		List<Tweet> tweets = tweetRepository.findAll();
 		 

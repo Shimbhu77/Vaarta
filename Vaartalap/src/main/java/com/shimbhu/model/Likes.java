@@ -27,11 +27,6 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Likes {
 
-	@Override
-	public String toString() {
-		return "Likes [likeId=" + likeId + ", tweet=" + tweet + ", user= ]";
-	}
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer likeId;
