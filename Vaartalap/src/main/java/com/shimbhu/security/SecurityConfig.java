@@ -56,6 +56,8 @@ public class SecurityConfig {
 				.requestMatchers(HttpMethod.GET,"/tweets").permitAll()
 				.requestMatchers("/v3/api-docs/**", "/swagger-ui*/**", "/swagger-ui.html").permitAll()
 				.requestMatchers(HttpMethod.GET,"/users","/retweets").hasRole("ADMIN")
+				.requestMatchers("/users/ban-user/**").hasAnyRole("ADMIN")
+				.requestMatchers(HttpMethod.GET,"/sign-in").hasAnyRole("ADMIN","BANNED_USER")
 				.requestMatchers(HttpMethod.GET,"/users/**","/welcome","/sign-in","/tweets/**","/retweets/**","/followers/**").hasAnyRole("ADMIN","USER")
 				.anyRequest().authenticated()
 				)

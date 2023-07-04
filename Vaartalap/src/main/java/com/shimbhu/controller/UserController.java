@@ -79,10 +79,23 @@ public class UserController {
 	   return new ResponseEntity<List<Users>>(user,HttpStatus.OK);
    }
    
+   @GetMapping("/users/ban-user/{userId}")
+   public ResponseEntity<Users> banUser(@PathVariable("userId") Integer userId) throws UserException
+   {
+	   Users user = userService.banUser(userId);
+	   
+	   return new ResponseEntity<Users>(user,HttpStatus.OK);
+   }
+   
    @GetMapping("/sign-in")
 	public ResponseEntity<Users> getLoggedInUserDetailsHandler(Authentication auth) throws BadCredentialsException, UserException{
 		
 		Users user= userService.getUserByEmail(auth.getName());
+		
+		if(user.getRole().equals("ROLE_BANNED_USER"))
+		{
+			throw new BadCredentialsException("Your account suspended by the vaartalap orgainization.");
+		}
 		
 		if(user!=null)
 		{

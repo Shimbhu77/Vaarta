@@ -30,7 +30,7 @@ public class LikeController {
 	   return new ResponseEntity<Likes>(like,HttpStatus.CREATED);
     }
 	 
-	 @GetMapping("/likes/dislike/{tweetId}")
+	 @GetMapping("/likes/remove-like-tweet/{tweetId}")
 	 public ResponseEntity<Likes> disliketweet(@PathVariable("tweetId") Integer tweetId,@RequestParam("likeId") Integer likeId) throws UserException, TweetException, LikeException
 	 {
 		   Likes like = likeService.dislikeTweet(tweetId,likeId);
@@ -38,7 +38,7 @@ public class LikeController {
 		   return new ResponseEntity<Likes>(like,HttpStatus.CREATED);
 	 }
 	 
-	 @GetMapping("/likes/my-all-likes")
+	 @GetMapping("/likes/my-liked-tweets")
 	 public ResponseEntity<List<Likes>> getMyAllLikeTweets() throws UserException, LikeException
 	 {
 		 List<Likes> likes = likeService.getAllMyLikeTweets();

@@ -1,13 +1,19 @@
 package com.shimbhu.exceptions;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -79,4 +85,31 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<ErrorDetails>(err,HttpStatus.BAD_REQUEST);
 		
 	}
+	
+	 @ExceptionHandler(ConstraintViolationException.class)
+	    public ResponseEntity<ErrorDetails> handleConstraintViolationException(ConstraintViolationException ex) {
+	        List<String> errorMessages = new ArrayList<>();
+	        for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
+	            errorMessages.add(violation.getMessage());
+	        }
+
+	        ErrorDetails errorDetails = new ErrorDetails();
+	        errorDetails.setDescription("Validation failed");
+	        errorDetails.setTimestamp(LocalDateTime.now());
+	        errorDetails.setMessage("Validation error : "+errorMessages);
+//	        errorDetails.setErrors(errorMessages);
+
+	        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+	    }
+	 
+	 @ExceptionHandler(BadCredentialsException.class)
+	 public ResponseEntity<ErrorDetails> myExceptionHandler(BadCredentialsException e) {
+	     ErrorDetails err = new ErrorDetails();
+	     err.setDescription("Invalid credentials");
+	     err.setTimestamp(LocalDateTime.now());
+	     err.setMessage(e.getMessage());
+	     
+	     return new ResponseEntity<>(err, HttpStatus.UNAUTHORIZED);
+	 }
+
 }

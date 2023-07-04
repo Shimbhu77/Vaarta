@@ -112,18 +112,18 @@ public class UserServiceImpl implements UserService {
 		
 		log.info(" inside deleteUser method  ");
 		
-        Users loggedInUser = getCurrentLoggedInUser();
-		
-		Optional<Users> opt = userRepository.findById(userId);
-		
-		if(opt.isPresent())
-		{
-			Users user = opt.get();
-			
-			if(loggedInUser.getUserId()==user.getUserId())
-			{
-				
-				log.info("User is deleting account "+user);
+//        Users loggedInUser = getCurrentLoggedInUser();
+//		
+//		Optional<Users> opt = userRepository.findById(userId);
+//		
+//		if(opt.isPresent())
+//		{
+//			Users user = opt.get();
+//			
+//			if(loggedInUser.getUserId()==user.getUserId())
+//			{
+//				
+//				log.info("User is deleting account "+user);
 //				
 //				user.setLikes(null);
 //				user.setFollowers(null);
@@ -132,13 +132,13 @@ public class UserServiceImpl implements UserService {
 				
 //				userRepository.delete(user);
 				
-				log.info("User deleted account "+user);
-				
-				return user;
-			}
-			
-			throw new UserException("Access Denied, you can't delete this User with this Id : "+userId);
-		}
+//				log.info("User deleted account "+user);
+//				
+//				return user;
+//			}
+//			
+//			throw new UserException("Access Denied, you can't delete this User with this Id : "+userId);
+//		}
 		throw new UserException("User not found with this Id : "+userId);
 	}
 
@@ -147,7 +147,28 @@ public class UserServiceImpl implements UserService {
 		
 		log.info(" inside banUser method  ");
 		
-		return null;
+        Users loggedInUser = getCurrentLoggedInUser();
+		
+		Optional<Users> opt = userRepository.findById(userId);
+		
+		if(opt.isPresent())
+		{
+			Users user = opt.get();
+			
+			if(loggedInUser.getRole().equals("ROLE_ADMIN"))
+			{
+				user.setUpdatedAt(LocalDateTime.now());
+				user.setRole("ROLE_BANNED_USER");
+				
+				log.info("User is suspended "+user);
+				
+				return userRepository.save(user);
+			}
+			
+			throw new UserException("Access Denied, you can't update this User with this Id : "+userId);
+		}
+		throw new UserException("User not found with this Id : "+userId);
+	
 	}
 
 	@Override

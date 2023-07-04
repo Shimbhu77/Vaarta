@@ -31,7 +31,7 @@ public class FollowerController {
 	   return new ResponseEntity<Users>(follower,HttpStatus.CREATED);
     }
 	 
-	 @GetMapping("/followers/follower/{followedUserId}")
+	 @GetMapping("/followers/unfollow/{followedUserId}")
 	 public ResponseEntity<Users> unfollowUser(@PathVariable("followedUserId") Integer followedUserId) throws UserException, FollowerException
 	 {
 		   Users follower = followerService.unfollowUser(followedUserId);
@@ -39,7 +39,7 @@ public class FollowerController {
 		   return new ResponseEntity<Users>(follower,HttpStatus.ACCEPTED);
 	 }
 	 
-	 @GetMapping("/followers/my-all-followed-user")
+	 @GetMapping("/followers/my-followed-users")
 	 public ResponseEntity<List<Followers>> getMyAllFollowedUser() throws UserException, FollowerException
 	 {
 		 List<Followers> likes = followerService.getAllFollowedUser();
