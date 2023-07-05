@@ -1,53 +1,8 @@
 # Vaartalap - Twitter Clone Application
 
-Vaartalap is a Twitter clone application built using Java and Spring Boot. It aims to provide similar functionalities as Twitter, including creating tweets, following users, liking and retweeting tweets, and more. The application uses various technologies and frameworks, such as Spring Security, Swagger UI, Lombok, Maven, Hibernate, and MySQL, to implement complex systems and ensure a secure and robust application.
+Vaartalap is an innovative social media application, inspired by Twitter, developed using the Java programming language and Spring Boot framework. This platform strives to replicate the core functionalities of Twitter while offering a unique user experience. Users can create and share tweets, connect with others by following their accounts, express their appreciation by liking tweets, and spread interesting content by retweeting.
 
-## complete ER diagram representation:
-
-```
-+------------------+             +-----------------+
-|     Users        |             |     Tweet       |
-+------------------+             +-----------------+
-| userId           |◁----------▷| tweetId         |
-| userName         |             | tweetLikes      |
-| fullName         |             | tweetViews      |
-| email            |             | content         |
-| password         |             | createdTweetAt  |
-| bio              |             | updatedTweetAt  |
-| role             |             |                 |
-| profileImage     |             |                 |
-| createdAt        |             |                 |
-| updatedAt        |             |                 |
-| follower         |             |                 |
-| following        |             |                 |
-+------------------+             +--------+--------+
-       △                                 |
-       |                                 |
-       |                                 |
-+------+---------+              +--------+---------+
-|   Likes       |              |     Retweets     |
-+---------------+              +-----------------+
-| likeId        |◁-----------▷| retweetId       |
-| tweetContent  |              | tweetContent    |
-| likedTweetId  |              | retweetedTweet  |
-+---------------+              +-----------------+
-       △                                 |
-       |                                 |
-       |                                 |
-+------+---------+                       |
-|  Followers    |                       |
-+---------------+                       |
-| followerId    |◁----------------------+
-| createdAt     |
-| userName      |
-| myFollowedUserId |
-+---------------+
-
-```
-
-Please note that this is a textual representation of the ER diagram, showing the entities (`Users`, `Tweet`, `Likes`, `Followers`) and their respective attributes. The lines with arrows indicate the relationships between the entities.
-
-
+To build Vaartalap, a diverse range of technologies and frameworks have been employed. The application leverages the power of Spring Security, which provides robust authentication and authorization mechanisms, ensuring secure access to user accounts and protecting sensitive information. Swagger UI is utilized to create an interactive and user-friendly API documentation, making it easier for developers and users to understand the available endpoints and their functionalities.
 
 ## Skills and Technologies
 
