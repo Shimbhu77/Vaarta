@@ -87,8 +87,16 @@ public class UserController {
 	   return new ResponseEntity<Users>(user,HttpStatus.OK);
    }
    
+   @GetMapping("/users/ban-user/un-ban/{userId}")
+   public ResponseEntity<Users> unbanUser(@PathVariable("userId") Integer userId) throws UserException
+   {
+	   Users user = userService.unBanUser(userId);
+	   
+	   return new ResponseEntity<Users>(user,HttpStatus.OK);
+   }
+   
    @GetMapping("/sign-in")
-	public ResponseEntity<Users> getLoggedInUserDetailsHandler(Authentication auth) throws BadCredentialsException, UserException{
+	public ResponseEntity<Users> getLogInUserDetailsHandler(Authentication auth) throws BadCredentialsException, UserException{
 		
 		Users user= userService.getUserByEmail(auth.getName());
 		
@@ -106,6 +114,21 @@ public class UserController {
 		
 
 	}
+   @GetMapping("/users/my-account")
+   public ResponseEntity<Users> getLoggedInUserDetailsHandler() throws UserException{
+	   
+	   Users user= userService.getCurrentLoggedInUser();
+	  
+	   return new ResponseEntity<Users>(user,HttpStatus.ACCEPTED);  
+   }
+   
+   @GetMapping("/users/search-user/{name}")
+   public ResponseEntity<List<Users>> getUserbyName(@PathVariable("name") String name) throws UserException
+   {
+	   List<Users> user = userService.getUsersByName(name);
+	   
+	   return new ResponseEntity<List<Users>>(user,HttpStatus.OK);
+   }
 	
 	
 }

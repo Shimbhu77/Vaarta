@@ -40,5 +40,9 @@ public class Likes {
 	@JoinColumn(name = "user_id")
 	@JsonIgnore
 	private Users user;
+	
+	private String tweetContent;
+	
+	private Integer likedTweetId;
 
 }

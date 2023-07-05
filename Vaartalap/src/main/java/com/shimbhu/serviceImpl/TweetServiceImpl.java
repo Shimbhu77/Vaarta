@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.shimbhu.exceptions.TweetException;
 import com.shimbhu.exceptions.UserException;
+import com.shimbhu.model.Likes;
 import com.shimbhu.model.Tweet;
 import com.shimbhu.model.Users;
 import com.shimbhu.model.dto.TweetDTO;
@@ -132,6 +133,30 @@ public class TweetServiceImpl implements TweetService {
 				
 				list.remove(tweet);
 				
+				List<Likes> TweetLikesList = tweet.getLikes();
+				
+				Likes findlike = null;
+				
+				for(Likes like : TweetLikesList )
+				{
+					if(like.getTweet().getTweetId()==tweetId)
+					{
+						findlike = like;
+						
+						break;
+					}
+				}
+				
+				if(findlike!=null)
+				{
+					findlike.setTweet(null);
+					findlike.setUser(null);
+					log.info("like is removing tweet ");
+					TweetLikesList.remove(findlike);
+					log.info("like is removed tweet ");
+				}
+				
+				
 				tweet.setUser(null);
 				tweet.setLikes(null);
 				tweet.setRetweets(null);
@@ -170,6 +195,16 @@ public class TweetServiceImpl implements TweetService {
 		List<Tweet> tweets = user.getTweets();
 		
 		log.info("All my Tweets got.");
+		
+		return tweets;
+	}
+
+	@Override
+	public List<Tweet> searchTweetByHashTag(String keyword) throws TweetException, UserException {
+		
+		Users user = userService.getCurrentLoggedInUser();
+		
+		List<Tweet> tweets = tweetRepository.searchTweetByHashTag(keyword);
 		
 		return tweets;
 	}

@@ -19,5 +19,7 @@ public interface TweetService {
 		
 	public List<Tweet> getAllMyTweets() throws TweetException, UserException;
 	
+	public List<Tweet> searchTweetByHashTag(String keyword) throws TweetException, UserException;
+	
 	public List<Tweet> getAllTweets() throws TweetException, UserException;
 }

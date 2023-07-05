@@ -53,6 +53,8 @@ public class FollowerServiceImpl implements FollowerService {
 		follower.setFollowedUser(followedUser);
 		follower.setFollowerUser(user);
 		follower.setCreatedAt(LocalDateTime.now());
+		follower.setMyFollowedUserId(followedUserId);
+		follower.setUserName(followedUser.getUserName());
 		
 		user.getFollowers().add(follower);
 		

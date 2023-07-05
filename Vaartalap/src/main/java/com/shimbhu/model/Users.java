@@ -57,6 +57,8 @@ public class Users {
 	
 	private String role;
 	
+//	private String profileImage;
+	
 	private LocalDateTime createdAt;
 	
 	private LocalDateTime updatedAt;

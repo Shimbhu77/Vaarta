@@ -58,6 +58,8 @@ public class LikeServiceImpl implements LikeService {
 		
 		like.setTweet(tweet);
 		like.setUser(user);
+		like.setTweetContent(tweet.getContent());
+		like.setLikedTweetId(tweetId);
 		
 		user.getLikes().add(like);
 		

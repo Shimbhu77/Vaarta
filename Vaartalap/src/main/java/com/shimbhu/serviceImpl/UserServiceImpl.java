@@ -170,6 +170,35 @@ public class UserServiceImpl implements UserService {
 		throw new UserException("User not found with this Id : "+userId);
 	
 	}
+	
+	@Override
+	public Users unBanUser(Integer userId) throws UserException {
+		
+		log.info(" inside unban User method  ");
+		
+		Users loggedInUser = getCurrentLoggedInUser();
+		
+		Optional<Users> opt = userRepository.findById(userId);
+		
+		if(opt.isPresent())
+		{
+			Users user = opt.get();
+			
+			if(loggedInUser.getRole().equals("ROLE_ADMIN"))
+			{
+				user.setUpdatedAt(LocalDateTime.now());
+				user.setRole("ROLE_USER");
+				
+				log.info("User is unbanned. "+user);
+				
+				return userRepository.save(user);
+			}
+			
+			throw new UserException("Access Denied, you can't update this User with this Id : "+userId);
+		}
+		throw new UserException("User not found with this Id : "+userId);
+		
+	}
 
 	@Override
 	public List<Users> getAllUser() throws UserException {
@@ -218,6 +247,16 @@ public class UserServiceImpl implements UserService {
 		
 		throw new UserException("Please Login first, for accessing your account");
 		
+	}
+
+	@Override
+	public List<Users> getUsersByName(String name) throws UserException {
+		
+		Users loggedInUser = getCurrentLoggedInUser();
+		
+		List<Users> users = userRepository.searchUserByname(name);
+		
+		return users;
 	}
 
 }

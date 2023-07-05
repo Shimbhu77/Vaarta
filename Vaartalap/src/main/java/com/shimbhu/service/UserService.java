@@ -20,11 +20,12 @@ public interface UserService {
 	
 	public Users banUser(Integer userId) throws UserException;
 	
+	public Users unBanUser(Integer userId) throws UserException;
+	
 	public List<Users> getAllUser() throws UserException;
 	
+	public List<Users> getUsersByName(String name) throws UserException;
+	
 	public Users getCurrentLoggedInUser() throws UserException;
-	
-	
-	
 	
 }

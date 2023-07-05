@@ -72,4 +72,12 @@ public class TweetController {
 		   
 		   return new ResponseEntity<List<Tweet>>(tweet,HttpStatus.OK);
 	   }
+	   
+	   @GetMapping("/tweets/search-tweet/{keyword}")
+	   public ResponseEntity<List<Tweet>> searchTweetsByHashTag(@PathVariable("keyword") String keyword) throws TweetException, UserException
+	   {
+		   List<Tweet> tweets = tweetservice.searchTweetByHashTag(keyword);
+		   
+		   return new ResponseEntity<List<Tweet>>(tweets,HttpStatus.OK);
+	   }
 }
