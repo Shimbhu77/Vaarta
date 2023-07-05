@@ -1,4 +1,4 @@
-# Vaartalap - Twitter Clone Application
+# Vaartalap Application
 
 Vaartalap is an innovative social media application, inspired by Twitter, developed using the Java programming language and Spring Boot framework. This platform strives to replicate the core functionalities of Twitter while offering a unique user experience. Users can create and share tweets, connect with others by following their accounts, express their appreciation by liking tweets, and spread interesting content by retweeting.
 
